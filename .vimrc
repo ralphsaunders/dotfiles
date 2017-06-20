@@ -1,13 +1,8 @@
 " Install plugins
 execute pathogen#infect()
 
-" Plugins
-" git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes
-" git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
-" git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim
-" git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
-" git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
-" git clone https://github.com/beyondwords/vim-twig ~/.vim/bundle/vim-twig
+" Plugins for quick copy pasta
+" git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes && git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline && git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim && git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized && git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && git clone https://github.com/beyondwords/vim-twig ~/.vim/bundle/vim-twig && git clone https://github.com/ervandew/supertab.git ~/.vim/bundle/supertab
 
 " Something to do with Vi
 set nocompatible
