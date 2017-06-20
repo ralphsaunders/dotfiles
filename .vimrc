@@ -7,6 +7,7 @@ execute pathogen#infect()
 " git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim
 " git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
 " git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+" git clone https://github.com/beyondwords/vim-twig ~/.vim/bundle/vim-twig
 
 " Something to do with Vi
 set nocompatible
