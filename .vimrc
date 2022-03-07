@@ -1,16 +1,37 @@
+" Ale (linting) config
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+let g:ale_lint_on_filetype_changed=0
+let g:airline#extensions#ale#enabled = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+
 " Install plugins
 execute pathogen#infect()
 
 " Plugins for quick copy pasta
-" git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes && git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline && git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim && git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized && git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && git clone https://github.com/beyondwords/vim-twig ~/.vim/bundle/vim-twig && git clone https://github.com/ervandew/supertab.git ~/.vim/bundle/supertab
+" git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes && git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline && git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim && git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized && git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && git clone https://github.com/andreshazard/vim-freemarker.git ~/.vim/bundle/vim-freemarker.vim && git clone https://github.com/cakebaker/scss-syntax.vim.git ~/.vim/bundle/scss-syntax && git clone https://github.com/elzr/vim-json.git ~/.vim/bundle/vim-json
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.vim/plugged')
+Plug 'dense-analysis/ale'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'tpope/vim-surround'
+" Initialize plugin system
+call plug#end()
 
 " Something to do with Vi
 set nocompatible
 
 " Set font (gvim)
 if has('gui_running')
-  set guifont=Monaco:h11
+  set guifont=Monaco:h12
   colorscheme solarized
+  set background=light
 endif
 
 " Hide toolbars (gvim)
@@ -36,12 +57,14 @@ set textwidth=80
 :set shiftwidth=4
 :set expandtab
 
-" Sass files get 2 space indent (overridden by .editorconfig with pathogen)
-autocmd FileType scss setlocal shiftwidth=2 tabstop=2
-
 " Filetype detection
 filetype on
 filetype plugin on
+filetype plugin indent on
+
+" Sass files get 4 space indent (overridden by .editorconfig with pathogen)
+autocmd FileType scss setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Syntax highlighting
 syntax on
@@ -59,14 +82,6 @@ if version >= 700
     " Set region to British English
     set spelllang=en_gb
 endif
-
-" Tab completion stuff
-set wildmenu
-set wildmode=list:longest,full
-
-" Autocomplete options
-set completeopt=menu,longest,preview
-set complete=.,w,b,u,U,t,i,d
 
 " Toggle line endings ,l
 nmap <leader>l :set list!<CR>
@@ -87,9 +102,6 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-" Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
@@ -100,7 +112,7 @@ set showcmd
 " set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 
 " Airline for vim should always display
-set laststatus=2
+" set laststatus=2
 
 " Airline theme
 let g:airline_theme='solarized'
@@ -111,3 +123,19 @@ autocmd BufEnter NERD_* setlocal rnu
 
 " Highlight search
 set hls
+
+" Improve gf file finding
+set path=.,src,node_modules
+set suffixesadd=.js,.scss
+function! LoadMainNodeModule(fname)
+    let nodeModules = "./node_modules/"
+    let packageJsonPath = nodeModules . a:fname . "/package.json"
+
+    if filereadable(packageJsonPath)
+        return nodeModules . a:fname . "/" . json_decode(join(readfile(packageJsonPath))).main
+    else
+        return nodeModules . a:fname
+    endif
+endfunction
+
+set includeexpr=LoadMainNodeModule(v:fname)
