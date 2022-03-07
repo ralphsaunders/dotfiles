@@ -14,8 +14,16 @@ let g:ale_linters = {
 execute pathogen#infect()
 
 " Plugins for quick copy pasta
+" Install pathogen
+" mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+" Install plugins
 " git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes && git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline && git clone https://github.com/editorconfig/editorconfig-vim.git ~/.vim/bundle/editorconfig-vim && git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized && git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && git clone https://github.com/andreshazard/vim-freemarker.git ~/.vim/bundle/vim-freemarker.vim && git clone https://github.com/cakebaker/scss-syntax.vim.git ~/.vim/bundle/scss-syntax && git clone https://github.com/elzr/vim-json.git ~/.vim/bundle/vim-json
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'yuezk/vim-js'
