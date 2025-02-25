@@ -1,0 +1,10 @@
+aws-iam-authenticator
+aws-sso-util
+awscli
+cask
+fzf
+kubectx
+macvim
+nvm
+zsh-autosuggestions
+zsh-syntax-highlighting
