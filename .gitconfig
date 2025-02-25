@@ -1,0 +1,46 @@
+[user]
+	email = email@example.com
+	name = Ralph Saunders
+
+# git branch
+# sort branches by commit date
+[branch]
+    sort = -committerdate
+
+# git branch
+# use columns, improving information density
+[column]
+    ui = auto
+
+# git tag
+# orders by version, not alphanumeric
+[tag]
+        sort = version:refname
+
+# git diff
+# use the histrogram algorithm for less confusing diffs
+# distinguish moved code from added code
+# detect when file renamed
+# detect when directory renamed
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        renames = true
+        mnemonicPrefix = true
+
+# git push
+# simple push (default since Git 2.0)
+# setup remote origins automatically
+# push local tags automatically (who remembers to do this manually?!)
+[push]
+        default = simple
+        autoSetupRemote = true
+        followTags = true
+
+# prompt me when I typo a git command
+[help]
+        autocorrect = prompt
+
+# show a diff when committing changes
+[commit]
+        verbose = true
